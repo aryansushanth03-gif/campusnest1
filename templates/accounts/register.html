@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sign Up (0% Brokerage) | CampusNest{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 650px;">
+    <div class="card border rounded-4 shadow-sm bg-white p-4 p-md-5">
+        <div class="text-center mb-4">
+            <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold mb-2">100% FREE FOR STUDENTS & OWNERS</span>
+            <h3 class="fw-bold mb-1">Join CampusNest</h3>
+            <p class="text-muted small">Choose your role to get started with zero-brokerage housing</p>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Role Selection -->
+            <div class="mb-4">
+                <label class="form-label small fw-bold text-dark d-block">I am joining as a:</label>
+                <div class="d-flex flex-column gap-2 p-3 bg-light rounded-3 border">
+                    {% for radio in form.role %}
+                        <div class="form-check">
+                            {{ radio.tag }}
+                            <label class="form-check-label fw-semibold text-dark" for="{{ radio.id_for_label }}">
+                                {{ radio.choice_label }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Credentials -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">First Name</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Last Name</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Username *</label>
+                    {{ form.username }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Email Address *</label>
+                    {{ form.email }}
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Calling Phone Number *</label>
+                    {{ form.phone }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">WhatsApp Number (Optional)</label>
+                    {{ form.whatsapp_number }}
+                </div>
+            </div>
+
+            <!-- Student specific fields -->
+            <div class="row g-3 mb-3" id="studentFields">
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">College / University</label>
+                    {{ form.college_name }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Course / Degree</label>
+                    {{ form.course }}
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Create Password *</label>
+                    {{ form.password }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Confirm Password *</label>
+                    {{ form.confirm_password }}
+                </div>
+            </div>
+
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary-teal py-2 fw-bold">Create My Account</button>
+            </div>
+        </form>
+
+        <div class="text-center small text-muted border-top pt-3 mt-2">
+            Already have an account? <a href="{% url 'login' %}" class="fw-bold text-teal text-decoration-none">Log In here</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

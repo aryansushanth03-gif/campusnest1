@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} | CampusNest{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width: 860px;">
+    <div class="card border rounded-4 shadow-sm bg-white p-4 p-md-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="badge-zero-broker"><i class="bi bi-shield-check me-1"></i> Strictly 0% Brokerage</span>
+            <span class="badge-verified"><i class="bi bi-check2-all me-1"></i> Direct Student Connect</span>
+        </div>
+        <h3 class="fw-bold text-dark mb-1">{{ title }}</h3>
+        <p class="text-muted small mb-4">Post your PG or student accommodation directly. No agents or broker commissions allowed.</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h5 class="fw-bold text-teal border-bottom pb-2 mb-3">1. Basic Property Details</h5>
+            <div class="mb-3">
+                <label class="form-label small fw-semibold text-muted">Listing Title *</label>
+                {{ form.title }}
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Property Type *</label>
+                    {{ form.property_type }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Tenant / Gender Preference *</label>
+                    {{ form.gender_preference }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Room Occupancy / Sharing *</label>
+                    {{ form.room_sharing }}
+                </div>
+            </div>
+
+            <h5 class="fw-bold text-teal border-bottom pb-2 mb-3 mt-4">2. Rent, Pricing & Policies</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Monthly Rent (₹ per student) *</label>
+                    {{ form.rent_per_month }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Security Deposit (₹)</label>
+                    {{ form.security_deposit }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Maintenance (₹/month, 0 if included)</label>
+                    {{ form.maintenance_charge }}
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Meals / Food Facility *</label>
+                    {{ form.food_facility }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Food Diet Type</label>
+                    {{ form.food_type }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Curfew Time</label>
+                    {{ form.curfew_time }}
+                </div>
+            </div>
+
+            <h5 class="fw-bold text-teal border-bottom pb-2 mb-3 mt-4">3. Location & Campus Proximity</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">City *</label>
+                    {{ form.city }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Locality / Area *</label>
+                    {{ form.locality }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Pincode</label>
+                    {{ form.pincode }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label small fw-semibold text-muted">Full Address *</label>
+                {{ form.address }}
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Primary College / University *</label>
+                    {{ form.nearby_college }}
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold text-muted">Distance (KM) *</label>
+                    {{ form.distance_to_college_km }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Nearest Metro / Bus Stop</label>
+                    {{ form.nearest_metro_bus }}
+                </div>
+            </div>
+
+            <h5 class="fw-bold text-teal border-bottom pb-2 mb-3 mt-4">4. Description & Rules</h5>
+            <div class="mb-3">
+                <label class="form-label small fw-semibold text-muted">Full Description *</label>
+                {{ form.description }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label small fw-semibold text-muted">House Rules</label>
+                {{ form.house_rules }}
+            </div>
+
+            <h5 class="fw-bold text-teal border-bottom pb-2 mb-3 mt-4">5. Amenities</h5>
+            <div class="mb-3 p-3 bg-light rounded-3">
+                <label class="form-label small fw-semibold text-muted d-block mb-2">Check all available amenities:</label>
+                <div class="row g-2">
+                    {% for pk, choice in form.amenities.field.choices %}
+                        <div class="col-6 col-md-4">
+                            <div class="form-check small">
+                                <input class="form-check-input" type="checkbox" name="amenities" value="{{ pk }}" id="id_amenities_{{ pk }}"
+                                       {% if pk in form.amenities.value or pk|stringformat:"i" in form.amenities.value %}checked{% endif %}>
+                                <label class="form-check-label" for="id_amenities_{{ pk }}">{{ choice }}</label>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <h5 class="fw-bold text-teal border-bottom pb-2 mb-3 mt-4">6. Photos & Contact Info</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Cover / Primary Photo</label>
+                    {{ form.featured_image }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Additional Photos (Multiple)</label>
+                    <input type="file" name="additional_images" class="form-control" multiple accept="image/*">
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Contact Person Name *</label>
+                    {{ form.contact_person }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Calling Phone Number *</label>
+                    {{ form.contact_phone }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">WhatsApp Number (For Direct Leads)</label>
+                    {{ form.contact_whatsapp }}
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 border-top pt-4">
+                <a href="{% url 'dashboard' %}" class="btn btn-light px-4">Cancel</a>
+                <button type="submit" class="btn btn-primary-teal px-5 py-2 fw-bold">Publish Listing (0% Brokerage)</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

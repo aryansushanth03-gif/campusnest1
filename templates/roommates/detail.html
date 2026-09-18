@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }} | CampusNest Roommate Finder{% endblock %}
+
+{% block content %}
+<div class="bg-light py-3 border-bottom mb-4">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 small">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'roommate_list' %}" class="text-decoration-none">Roommates</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ post.title|truncatechars:35 }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container mb-5" style="max-width: 900px;">
+    <div class="card border rounded-4 shadow-sm bg-white p-4 p-md-5 mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-start mb-4 gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold fs-3 shadow" style="width: 68px; height: 68px; background-color: var(--primary-color);">
+                    {{ post.user.first_name|default:post.user.username|slice:":1"|upper }}
+                </div>
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                        <h4 class="fw-bold mb-0">{{ post.user.get_full_name|default:post.user.username }}</h4>
+                        <span class="badge-verified"><i class="bi bi-patch-check-fill me-1"></i> Verified Student</span>
+                    </div>
+                    <div class="text-muted small">
+                        <i class="bi bi-mortarboard-fill text-teal me-1"></i> {{ post.target_college }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                {% if request.user == post.user %}
+                    <a href="{% url 'roommate_edit' pk=post.pk %}" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                        <i class="bi bi-pencil-square me-1"></i> Edit Post
+                    </a>
+                    <a href="{% url 'roommate_delete' pk=post.pk %}" class="btn btn-outline-danger btn-sm rounded-pill px-3">
+                        <i class="bi bi-trash3 me-1"></i> Delete
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <h3 class="fw-bold text-dark mb-3">{{ post.title }}</h3>
+
+        <!-- Key Details Grid -->
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="p-3 bg-light rounded-3">
+                    <span class="text-muted small d-block">Monthly Budget</span>
+                    <span class="fw-bold fs-5 text-teal">₹{{ post.budget_per_month|floatformat:0 }}</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="p-3 bg-light rounded-3">
+                    <span class="text-muted small d-block">Looking For</span>
+                    <span class="fw-bold">{{ post.get_gender_preference_display }}</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="p-3 bg-light rounded-3">
+                    <span class="text-muted small d-block">Occupancy</span>
+                    <span class="fw-bold">{{ post.get_occupancy_type_display }}</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="p-3 bg-light rounded-3">
+                    <span class="text-muted small d-block">Target Area</span>
+                    <span class="fw-bold">{{ post.target_locality }}, {{ post.target_city }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lifestyle & Compatibility Card -->
+        <div class="card border rounded-3 p-4 mb-4 bg-light">
+            <h5 class="fw-bold mb-3">Lifestyle & Roommate Habits</h5>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center gap-3 p-2 bg-white rounded-2 border">
+                        <i class="bi bi-clock-history fs-4 text-teal"></i>
+                        <div>
+                            <span class="small text-muted d-block">Sleep Pattern</span>
+                            <strong>{{ post.get_sleep_schedule_display }}</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center gap-3 p-2 bg-white rounded-2 border">
+                        <i class="bi bi-egg-fried fs-4 text-teal"></i>
+                        <div>
+                            <span class="small text-muted d-block">Food / Dietary Preference</span>
+                            <strong>{{ post.get_dietary_preference_display }}</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center gap-3 p-2 bg-white rounded-2 border">
+                        <i class="bi bi-shield-x fs-4 text-teal"></i>
+                        <div>
+                            <span class="small text-muted d-block">Smoking Habit</span>
+                            <strong>{{ post.get_smoking_habit_display }}</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center gap-3 p-2 bg-white rounded-2 border">
+                        <i class="bi bi-book fs-4 text-teal"></i>
+                        <div>
+                            <span class="small text-muted d-block">Study Atmosphere</span>
+                            <strong>{{ post.get_study_vibe_display }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Me Section -->
+        <h5 class="fw-bold mb-2">About {{ post.user.first_name|default:post.user.username }}</h5>
+        <p class="text-secondary mb-4" style="line-height: 1.8; white-space: pre-line;">{{ post.about_me }}</p>
+
+        <!-- Direct Connect Box -->
+        <div class="p-4 rounded-4 bg-teal-subtle border border-teal-subtle d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+                <h6 class="fw-bold text-teal mb-1">Direct Student Contact (0% Brokerage)</h6>
+                <p class="small text-secondary mb-0">Reach out directly to introduce yourself and discuss sharing an apartment.</p>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="tel:{{ post.contact_phone }}" class="btn btn-outline-dark px-3 py-2 fw-semibold">
+                    <i class="bi bi-telephone-fill me-1"></i> Call {{ post.contact_phone }}
+                </a>
+                <a href="{{ post.whatsapp_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp px-4 py-2 fw-semibold">
+                    <i class="bi bi-whatsapp me-1"></i> Chat on WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

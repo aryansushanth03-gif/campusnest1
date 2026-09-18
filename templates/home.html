@@ -1,0 +1,358 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}CampusNest - 0% Brokerage Student Hostels & Roommate Portal{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container position-relative" style="z-index: 2;">
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="col-lg-10">
+                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold text-uppercase mb-3 shadow-sm">
+                    <i class="bi bi-shield-check me-1"></i> Strictly Zero Brokerage For Students
+                </span>
+                <h1 class="display-4 fw-extrabold text-white mb-3">
+                    Student Hostels, PGs & Roommates <br class="d-none d-md-block">Near Your College
+                </h1>
+                <p class="lead text-light opacity-90 mb-4 mx-auto" style="max-width: 680px;">
+                    Skip the middleman fees. Connect directly with verified hostel owners and compatible university flatmates.
+                </p>
+
+                <!-- Search Card -->
+                <div class="hero-search-box text-start mx-auto mb-4">
+                    <form action="{% url 'listing_list' %}" method="GET">
+                        <div class="row g-2 align-items-center">
+                            <div class="col-md-5">
+                                <label class="form-label text-muted small fw-semibold mb-1">
+                                    <i class="bi bi-geo-alt-fill text-teal me-1"></i> College, City or Locality
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" name="q" class="form-control form-control-lg border-0 bg-light" placeholder="e.g. Delhi University, Koramangala, Powai..." required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label text-muted small fw-semibold mb-1">
+                                    <i class="bi bi-gender-ambiguous me-1"></i> Gender
+                                </label>
+                                <select name="gender" class="form-select form-select-lg border-0 bg-light">
+                                    <option value="">Any Gender</option>
+                                    <option value="BOYS">Boys Only</option>
+                                    <option value="GIRLS">Girls Only</option>
+                                    <option value="COED">Co-ed / Unisex</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label text-muted small fw-semibold mb-1">
+                                    <i class="bi bi-door-open me-1"></i> Room Type
+                                </label>
+                                <select name="sharing" class="form-select form-select-lg border-0 bg-light">
+                                    <option value="">Any Sharing</option>
+                                    <option value="SINGLE">Single Room</option>
+                                    <option value="DOUBLE">Double Sharing</option>
+                                    <option value="TRIPLE">Triple Sharing</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 d-grid">
+                                <label class="form-label d-none d-md-block mb-1">&nbsp;</label>
+                                <button type="submit" class="btn btn-primary-teal btn-lg fw-bold d-flex align-items-center justify-content-center gap-1">
+                                    <i class="bi bi-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Popular College Hubs Quick Select -->
+                <div class="d-flex flex-wrap align-items-center justify-content-center gap-2">
+                    <span class="small text-light opacity-75 fw-semibold me-1">Popular Campuses:</span>
+                    {% for college in top_colleges %}
+                        <a href="{% url 'listing_list' %}?q={{ college|urlencode }}" class="college-pill">
+                            <i class="bi bi-mortarboard"></i> {{ college }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trust Highlights Banner -->
+<section class="py-4 bg-white border-bottom shadow-sm">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-3">
+                <div class="d-flex align-items-center justify-content-center gap-3">
+                    <div class="rounded-circle p-3 bg-danger-subtle text-danger fs-3">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+                    <div class="text-start">
+                        <h6 class="fw-bold mb-0">₹0 Brokerage</h6>
+                        <small class="text-muted">Save 100% agent fees</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="d-flex align-items-center justify-content-center gap-3">
+                    <div class="rounded-circle p-3 bg-success-subtle text-success fs-3">
+                        <i class="bi bi-patch-check-fill"></i>
+                    </div>
+                    <div class="text-start">
+                        <h6 class="fw-bold mb-0">Verified Owners</h6>
+                        <small class="text-muted">Direct phone & WhatsApp</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="d-flex align-items-center justify-content-center gap-3">
+                    <div class="rounded-circle p-3 bg-primary-subtle text-primary fs-3">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="text-start">
+                        <h6 class="fw-bold mb-0">Roommate Match</h6>
+                        <small class="text-muted">College & lifestyle filters</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="d-flex align-items-center justify-content-center gap-3">
+                    <div class="rounded-circle p-3 bg-warning-subtle text-warning-emphasis fs-3">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <div class="text-start">
+                        <h6 class="fw-bold mb-0">Free Visit Booking</h6>
+                        <small class="text-muted">Schedule instant visit</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Hostels & PGs -->
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+            <div>
+                <span class="badge bg-primary-subtle text-primary fw-semibold px-2 py-1 mb-2">HANDPICKED STAYS</span>
+                <h2 class="fw-bold mb-1">Featured Student Accommodations</h2>
+                <p class="text-muted mb-0">Verified hostels and PGs with zero brokerage and student-friendly amenities</p>
+            </div>
+            <a href="{% url 'listing_list' %}" class="btn btn-outline-teal fw-semibold btn-sm mt-2 mt-sm-0">
+                View All {{ total_listings }} Hostels <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+
+        <div class="row g-4">
+            {% for item in featured_listings %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="property-card">
+                        <div class="property-card-img-wrapper">
+                            <!-- Image -->
+                            {% if item.featured_image %}
+                                <img src="{{ item.featured_image.url }}" alt="{{ item.title }}" class="property-card-img">
+                            {% else %}
+                                <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&auto=format&fit=crop&q=80" alt="{{ item.title }}" class="property-card-img">
+                            {% endif %}
+
+                            <!-- Badges -->
+                            <div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-1">
+                                <span class="badge-zero-broker">
+                                    <i class="bi bi-slash-circle me-1"></i> 0% Brokerage
+                                </span>
+                                {% if item.gender_preference == 'BOYS' %}
+                                    <span class="badge-gender badge-gender-boys"><i class="bi bi-gender-male me-1"></i> Boys Only</span>
+                                {% elif item.gender_preference == 'GIRLS' %}
+                                    <span class="badge-gender badge-gender-girls"><i class="bi bi-gender-female me-1"></i> Girls Only</span>
+                                {% else %}
+                                    <span class="badge-gender badge-gender-coed"><i class="bi bi-gender-ambiguous me-1"></i> Co-ed</span>
+                                {% endif %}
+                            </div>
+
+                            <!-- Save Button -->
+                            <button class="save-btn {% if item.id in user_saved_ids %}saved{% endif %}" data-listing-id="{{ item.id }}" title="Save to Wishlist">
+                                <i class="bi {% if item.id in user_saved_ids %}bi-heart-fill text-danger{% else %}bi-heart{% endif %}"></i>
+                            </button>
+                        </div>
+
+                        <div class="p-3 d-flex flex-column flex-grow-1">
+                            <div class="d-flex align-items-center justify-content-between mb-1">
+                                <span class="text-muted small">
+                                    <i class="bi bi-geo-alt-fill text-danger me-1"></i> {{ item.locality }}, {{ item.city }}
+                                </span>
+                                <span class="badge bg-light text-dark border">
+                                    <i class="bi bi-star-fill text-warning me-1"></i> {{ item.average_rating }}
+                                </span>
+                            </div>
+
+                            <h5 class="fw-bold mb-2">
+                                <a href="{% url 'listing_detail' slug=item.slug %}" class="text-dark text-decoration-none">
+                                    {{ item.title }}
+                                </a>
+                            </h5>
+
+                            <div class="d-flex align-items-center gap-2 mb-3 text-secondary small">
+                                <span><i class="bi bi-mortarboard-fill text-teal me-1"></i> {{ item.distance_to_college_km }} km from {{ item.nearby_college|truncatechars:26 }}</span>
+                            </div>
+
+                            <!-- Amenities sample -->
+                            <div class="d-flex flex-wrap gap-1 mb-3">
+                                <span class="amenity-chip"><i class="bi bi-door-closed"></i> {{ item.get_room_sharing_display }}</span>
+                                {% if 'INCLUDED' in item.food_facility %}
+                                    <span class="amenity-chip text-success bg-success-subtle"><i class="bi bi-cup-hot"></i> Food Included</span>
+                                {% endif %}
+                                {% for a in item.amenities.all|slice:":2" %}
+                                    <span class="amenity-chip"><i class="{{ a.icon_class }}"></i> {{ a.name }}</span>
+                                {% endfor %}
+                            </div>
+
+                            <div class="mt-auto pt-3 border-top d-flex align-items-center justify-content-between">
+                                <div>
+                                    <div class="price-tag">₹{{ item.rent_per_month|floatformat:0 }}<span class="price-subtext">/mo</span></div>
+                                    <div class="text-muted" style="font-size: 0.72rem;">Deposit: ₹{{ item.security_deposit|floatformat:0 }}</div>
+                                </div>
+                                <a href="{% url 'listing_detail' slug=item.slug %}" class="btn btn-sm btn-primary-teal px-3 py-2">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">No featured listings found.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Roommate Finder Preview Banner -->
+<section class="py-5 bg-light border-top border-bottom">
+    <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+            <div>
+                <span class="badge bg-warning-subtle text-warning-emphasis fw-semibold px-2 py-1 mb-2">CAMPUS CONNECT</span>
+                <h2 class="fw-bold mb-1">Students Looking For Roommates</h2>
+                <p class="text-muted mb-0">Find like-minded roommates from your college with aligned study and lifestyle habits</p>
+            </div>
+            <div class="d-flex gap-2 mt-2 mt-sm-0">
+                <a href="{% url 'roommate_create' %}" class="btn btn-outline-success btn-sm fw-semibold">
+                    <i class="bi bi-person-plus-fill me-1"></i> Post Roommate Ad
+                </a>
+                <a href="{% url 'roommate_list' %}" class="btn btn-primary-teal btn-sm fw-semibold">
+                    Browse All Roommates ({{ total_roommates }})
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% for r in recent_roommates %}
+                <div class="col-md-6 col-lg-3">
+                    <div class="roommate-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold fs-5 shadow-sm" style="width: 48px; height: 48px; background-color: var(--primary-color);">
+                                {{ r.user.first_name|default:r.user.username|slice:":1"|upper }}
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0">{{ r.user.get_full_name|default:r.user.username }}</h6>
+                                <small class="text-muted"><i class="bi bi-mortarboard me-1"></i>{{ r.target_college|truncatechars:22 }}</small>
+                            </div>
+                        </div>
+
+                        <h6 class="fw-semibold text-dark mb-2" style="font-size: 0.95rem;">
+                            <a href="{% url 'roommate_detail' pk=r.pk %}" class="text-dark text-decoration-none">
+                                {{ r.title|truncatechars:45 }}
+                            </a>
+                        </h6>
+
+                        <div class="small text-muted mb-3 flex-grow-1">
+                            {{ r.about_me|truncatechars:85 }}
+                        </div>
+
+                        <!-- Habit Tags -->
+                        <div class="d-flex flex-wrap gap-1 mb-3">
+                            <span class="habit-tag"><i class="bi bi-clock"></i> {{ r.get_sleep_schedule_display }}</span>
+                            <span class="habit-tag"><i class="bi bi-egg-fried"></i> {{ r.get_dietary_preference_display }}</span>
+                            <span class="habit-tag"><i class="bi bi-shield-x"></i> {{ r.get_smoking_habit_display }}</span>
+                        </div>
+
+                        <div class="pt-3 border-top d-flex align-items-center justify-content-between mt-auto">
+                            <div>
+                                <span class="text-muted small">Budget:</span>
+                                <div class="fw-bold text-teal">₹{{ r.budget_per_month|floatformat:0 }}<small class="text-muted">/mo</small></div>
+                            </div>
+                            <a href="{% url 'roommate_detail' pk=r.pk %}" class="btn btn-sm btn-outline-teal">
+                                Connect
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center py-4">
+                    <p class="text-muted">No roommate listings posted yet.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Why CampusNest / NoBroker Guarantee -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center max-w-700 mx-auto mb-5">
+            <span class="badge bg-teal-subtle text-teal fw-semibold px-3 py-1 mb-2">HOW IT WORKS</span>
+            <h2 class="fw-bold">Why Students Choose CampusNest</h2>
+            <p class="text-muted">The traditional rental market takes thousands of rupees in brokerage fees. We connect students and property owners directly for free.</p>
+        </div>
+
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <div class="p-4 bg-white rounded-4 border h-100 shadow-sm">
+                    <div class="rounded-circle bg-light text-teal mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; font-size: 1.75rem;">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <h5 class="fw-bold">1. Search Campus Proximity</h5>
+                    <p class="text-muted small">Filter hostels and PGs by your exact university, budget range, curfew times, and food facilities.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 bg-white rounded-4 border h-100 shadow-sm">
+                    <div class="rounded-circle bg-light text-warning mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; font-size: 1.75rem;">
+                        <i class="bi bi-chat-dots-fill"></i>
+                    </div>
+                    <h5 class="fw-bold">2. Direct Owner Connect</h5>
+                    <p class="text-muted small">Unlock owner phone numbers and launch instant WhatsApp chats with zero broker interference or fees.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 bg-white rounded-4 border h-100 shadow-sm">
+                    <div class="rounded-circle bg-light text-success mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; font-size: 1.75rem;">
+                        <i class="bi bi-calendar-event"></i>
+                    </div>
+                    <h5 class="fw-bold">3. Schedule Free Visit & Move In</h5>
+                    <p class="text-muted small">Book an in-person or parent visit slot directly on the portal. Inspect rooms and confirm your stay hassle-free.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Banner -->
+<section class="py-5 text-white" style="background: linear-gradient(135deg, #0f766e 0%, #042f2e 100%);">
+    <div class="container text-center py-3">
+        <h2 class="display-6 fw-bold mb-3">Are You a Hostel or PG Owner?</h2>
+        <p class="lead text-light opacity-90 mx-auto mb-4" style="max-width: 650px;">
+            List your rooms for free on CampusNest. Reach thousands of university students searching for verified stays near campus every day.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="{% url 'listing_create' %}" class="btn btn-warning btn-lg px-4 py-3 fw-bold shadow">
+                <i class="bi bi-house-add-fill me-2"></i> Post Free Hostel Listing
+            </a>
+            <a href="{% url 'roommate_list' %}" class="btn btn-outline-light btn-lg px-4 py-3 fw-bold">
+                <i class="bi bi-people-fill me-2"></i> Explore Flatmates
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

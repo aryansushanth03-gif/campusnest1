@@ -1,0 +1,356 @@
+:root {
+    --primary-color: #0d9488;
+    --primary-hover: #0f766e;
+    --primary-light: #ccfbf1;
+    --accent-color: #f59e0b;
+    --accent-dark: #d97706;
+    --secondary-color: #3b82f6;
+    --dark-text: #0f172a;
+    --muted-text: #64748b;
+    --border-color: #e2e8f0;
+    --bg-surface: #f8fafc;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --card-shadow-hover: 0 12px 24px -4px rgba(13, 148, 136, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--dark-text);
+    background-color: #f8fafc;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+/* Navbar */
+.navbar-brand-logo {
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+    color: var(--primary-color) !important;
+}
+
+.navbar-brand-logo span {
+    color: var(--accent-dark);
+}
+
+.custom-nav {
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    padding: 0.75rem 0;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #334155 !important;
+    transition: color 0.15s ease-in-out;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #042f2e 0%, #0f766e 60%, #14b8a6 100%);
+    color: white;
+    padding: 4.5rem 0 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 40%);
+    pointer-events: none;
+}
+
+.hero-search-box {
+    background: white;
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.college-pill {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50rem;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.college-pill:hover {
+    background: white;
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* Badges */
+.badge-zero-broker {
+    background: #fef3c7;
+    color: #b45309;
+    border: 1px solid #fde68a;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 6px;
+}
+
+.badge-verified {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 6px;
+}
+
+.badge-gender {
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 6px;
+}
+
+.badge-gender-boys {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.badge-gender-girls {
+    background: #fce7f3;
+    color: #be185d;
+}
+
+.badge-gender-coed {
+    background: #ede9fe;
+    color: #6d28d9;
+}
+
+/* Cards */
+.property-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.property-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: #cbd5e1;
+}
+
+.property-card-img-wrapper {
+    position: relative;
+    height: 200px;
+    background-color: #e2e8f0;
+    overflow: hidden;
+}
+
+.property-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.property-card:hover .property-card-img {
+    transform: scale(1.05);
+}
+
+.save-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+    z-index: 5;
+    color: #64748b;
+}
+
+.save-btn:hover {
+    background: white;
+    color: #ef4444;
+    transform: scale(1.1);
+}
+
+.save-btn.saved {
+    color: #ef4444;
+}
+
+/* Pricing Tag */
+.price-tag {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--primary-color);
+}
+
+.price-subtext {
+    font-size: 0.8rem;
+    color: var(--muted-text);
+}
+
+/* Amenity Chips */
+.amenity-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+/* Filter Sidebar */
+.filter-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: var(--card-shadow);
+}
+
+.filter-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #475569;
+    margin-bottom: 0.85rem;
+}
+
+/* Roommate Cards */
+.roommate-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.25s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.roommate-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.habit-tag {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #334155;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+/* Detail Page Hero Gallery */
+.gallery-main-img {
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+/* Buttons */
+.btn-primary-teal {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary-teal:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.btn-whatsapp {
+    background-color: #25d366;
+    border-color: #25d366;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-whatsapp:hover {
+    background-color: #1ebc57;
+    border-color: #1ebc57;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Footer */
+.custom-footer {
+    background-color: #042f2e;
+    color: #94a3b8;
+    padding: 3.5rem 0 1.5rem;
+    font-size: 0.9rem;
+}
+
+.custom-footer h6 {
+    color: #f8fafc;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.custom-footer a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.custom-footer a:hover {
+    color: var(--primary-light);
+}
+
+/* Toast Container */
+.toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1080;
+}

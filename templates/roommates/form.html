@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} | CampusNest{% endblock %}
+
+{% block content %}
+<div class="container py-4" style="max-width: 800px;">
+    <div class="card border rounded-4 shadow-sm bg-white p-4 p-md-5">
+        <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge bg-warning text-dark fw-bold"><i class="bi bi-people-fill me-1"></i> Roommate Match</span>
+            <span class="badge-zero-broker">100% Free</span>
+        </div>
+        <h3 class="fw-bold text-dark mb-1">{{ title }}</h3>
+        <p class="text-muted small mb-4">Looking for someone to share rent with? Post your requirements and connect directly with fellow university students.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <h5 class="fw-bold text-teal border-bottom pb-2 mb-3">1. Requirement & University</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">What are you looking for? *</label>
+                    {{ form.post_type }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">College / University Name *</label>
+                    {{ form.target_college }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label small fw-semibold text-muted">Post Title *</label>
+                {{ form.title }}
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Target City *</label>
+                    {{ form.target_city }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Target Locality / Area *</label>
+                    {{ form.target_locality }}
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold text-muted">Budget (₹/month per person) *</label>
+                    {{ form.budget_per_month }}
+                </div>
+            </div>
+
+            <h5 class="fw-bold text-teal border-bottom pb-2 mb-3 mt-4">2. Roommate Preferences & Lifestyle</h5>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Gender Preference *</label>
+                    {{ form.gender_preference }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Occupancy Type *</label>
+                    {{ form.occupancy_type }}
+                </div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold text-muted">Dietary Habit</label>
+                    {{ form.dietary_preference }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold text-muted">Smoking Habit</label>
+                    {{ form.smoking_habit }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold text-muted">Sleep Routine</label>
+                    {{ form.sleep_schedule }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold text-muted">Study Vibe</label>
+                    {{ form.study_vibe }}
+                </div>
+            </div>
+
+            <h5 class="fw-bold text-teal border-bottom pb-2 mb-3 mt-4">3. About Yourself & Contact</h5>
+            <div class="mb-3">
+                <label class="form-label small fw-semibold text-muted">Introduce Yourself *</label>
+                {{ form.about_me }}
+                <div class="form-text">Mention your year, course, interests, hygiene expectations, and preferred move-in date.</div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">Calling Phone Number *</label>
+                    {{ form.contact_phone }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small fw-semibold text-muted">WhatsApp Number (For instant chat)</label>
+                    {{ form.contact_whatsapp }}
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 border-top pt-4">
+                <a href="{% url 'roommate_list' %}" class="btn btn-light px-4">Cancel</a>
+                <button type="submit" class="btn btn-primary-teal px-5 py-2 fw-bold">Publish Post</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

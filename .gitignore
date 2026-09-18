@@ -1,0 +1,32 @@
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django database & media
+*.sqlite3-journal
+# (Optional: include db.sqlite3 if you want the other person to receive the pre-seeded demo data immediately, or exclude if they will run migrations)
+# db.sqlite3
+
+# User uploaded media
+media/
+
+# Environment variables / local settings
+.env
+local_settings.py
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
